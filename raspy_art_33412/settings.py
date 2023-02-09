@@ -28,8 +28,8 @@ env = environ.Env()
 env.read_env(env_file)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False)
-
+DEBUG = env.bool("DEBUG", default=True)
+#SILENCED_SYSTEM_CHECKS = ["models.W001"]
 # try:
 #     # Pull secrets from Secret Manager
 #     _, project = google.auth.default()
@@ -291,8 +291,8 @@ TWILIO_PHONE = env.str("TWILIO_PHONE", "")
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id":env.str("GOOGLE_CLIENT_ID", ""),
-            "secret": env.str("GOOGLE_SECRET", ""),
+            "client_id":"277059566822-bhavsugv21mrv1no82ke0kf2m971thec.apps.googleusercontent.com",
+            "secret": "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",
         },
         'SCOPE': [
             'profile',
@@ -348,10 +348,10 @@ BBLF1u3x
     }
 }
 
-STRIPE_TEST_PUBLIC_KEY = env.str("STRIPE_TEST_PUBLIC_KEY", "")
-STRIPE_TEST_SECRET_KEY = env.str("STRIPE_TEST_SECRET_KEY", "")
-STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "")
-STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "")
+STRIPE_TEST_PUBLIC_KEY = env.str("STRIPE_TEST_PUBLIC_KEY", "pk_test_51KtechEgMk0fYPeIhFfSgsPQOHHdzhqkUON5hJav2s8YsxT2nc50tLNHE3MDDSdJNtnyVqUYJj7XekbncqsAPFhq00Ve01BnSY")
+STRIPE_TEST_SECRET_KEY = env.str("STRIPE_TEST_SECRET_KEY", "sk_test_51KtechEgMk0fYPeIhFfSgsPQOHHdzhqkUON5hJav2s8YsxT2nc50tLNHE3MDDSdJNtnyVqUYJj7XekbncqsAPFhq00Ve01BnSY")
+STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "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")
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "pk_live_51KtechEgMk0fYPeIhFfSgsPQOHHdzhqkUON5hJav2s8YsxT2nc50tLNHE3MDDSdJNtnyVqUYJj7XekbncqsAPFhq00Ve01BnSY")
 STRIPE_LIVE_MODE = env.bool("STRIPE_LIVE_MODE", False)
 DJSTRIPE_WEBHOOK_SECRET = env.str("DJSTRIPE_WEBHOOK_SECRET", "")
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
