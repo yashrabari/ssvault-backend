@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from django.db.models import Count, Sum
 from files_folders import serializers,models
+import logging
 
 
 class FolderModelViewSet(viewsets.ModelViewSet):
@@ -15,9 +16,11 @@ class FolderModelViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.FolderSerializer
     
     def get_queryset(self):
+        print('AAAAAAAAAAAAAAAAA')
         return models.Folder.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
+        print('AHHHHHHHHHHHHH')
         serializer.save(user=self.request.user)
 
 class FileModelViewSet(viewsets.ModelViewSet):
@@ -38,7 +41,11 @@ class UploadFile(APIView):
             user = request.user
             if user.storage_left >= user.storage:
                 return Response({"message":"Your storage is full."},status=status.HTTP_201_CREATED)
+            file_count = models.File.objects.filter(user=user).values('extension').annotate(count=Count('extension')).annotate(size=Sum('size'))
+            # if file_count >= 2:
+            #     return Response({"message":"You Can't Upload more than 2 Files."},status=status.HTTP_201_CREATED)
             file = request.FILES['file']
+            logging.debug("Oh hai!")
             folder = models.Folder.objects.get(id=request.data['folder_id'])
             size = float(file.size)/1000000
             file_upload = models.File.objects.create(
